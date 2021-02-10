@@ -2,7 +2,7 @@
 
 FROM ubuntu:20.04
 
-LABEL maintainer="Tobias Verbeke <tobias.verbeke@openanalytics.eu>"
+LABEL maintainer="Awais Akram <awais@marketlytics.com>"
 
 # Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
 RUN useradd docker \
@@ -60,5 +60,23 @@ RUN apt-get update \
 	&& install.r docopt \
 	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
 	&& rm -rf /var/lib/apt/lists/*
+	
+# system libraries of general use
+RUN sudo \
+    pandoc \
+    pandoc-citeproc \
+    libcurl4-gnutls-dev \
+    libcairo2-dev \
+    libxt-dev \
+    libssl-dev \
+    libssh2-1-dev \
+    libssl1.1 \
+    libxml2-dev \
+    python \
+    python3-pip
+
+RUN R -e "install.packages(c('devtools','shinydashboard','shinyjs','jsonlite','DT','shinycssloaders','shinytoastr','dplyr','shinyWidgets','httr','highcharter','googleAuthR','dplyr','jsonlite'),repos='http://cran.rstudio.com/')"
+
+RUN R -e "devtools::install_github('MarkEdmondson1234/bigQueryR')"
 
 CMD ["R"]

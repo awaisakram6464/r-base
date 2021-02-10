@@ -62,7 +62,7 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 	
 # system libraries of general use
-RUN apt-get install -y sudo \
+RUN apt-get update && apt-get install -y sudo \
     pandoc \
     pandoc-citeproc \
     libcurl4-gnutls-dev \

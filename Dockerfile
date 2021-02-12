@@ -21,4 +21,6 @@ RUN R -e "install.packages(c('devtools','shinydashboard','shinyjs','jsonlite','D
 
 RUN R -e "devtools::install_github('MarkEdmondson1234/bigQueryR')"
 
+RUN R -e "devtools::install_github('awaisakram64/shinycookie')"
+
 CMD ["R"]
